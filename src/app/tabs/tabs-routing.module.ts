@@ -20,15 +20,23 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'empezar-hobby',
+        loadChildren: () => import('../empezar-hobby/empezar-hobby.module').then(m => m.EmpezarHobbyPageModule)
+      },
+      {
+        path: 'editar-hobby',
+        loadChildren: () => import('../editar-hobby/editar-hobby.module').then(m => m.EditarHobbyPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/tab2',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/login',
     pathMatch: 'full'
   }
 ];

@@ -5,8 +5,25 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'empezar-hobby',
+    loadChildren: () => import('./empezar-hobby/empezar-hobby.module').then( m => m.EmpezarHobbyPageModule)
+  },
+  {
+    path: 'configuracion',
+    loadChildren: () => import('./configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+  {
+    path: 'editar-hobby',
+    loadChildren: () => import('./editar-hobby/editar-hobby.module').then( m => m.EditarHobbyPageModule)
   }
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

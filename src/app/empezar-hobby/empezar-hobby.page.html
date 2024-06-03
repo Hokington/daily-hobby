@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>empezar hobby</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"
+        >Empezar <br />
+        nuevo Hobby</ion-title
+      >
+    </ion-toolbar>
+  </ion-header>
+  <div style="padding: 12px 18px">
+    <ion-list *ngIf="errors">
+      <ion-item *ngFor="let error of errors">
+        <ion-list>{{ error }}</ion-list>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input
+        placeholder="Correr"
+        type="text"
+        [(ngModel)]="title"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Color</ion-label>
+      <ion-input
+        placeholder="Magenta"
+        type="color"
+        [(ngModel)]="color"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Minutos por día</ion-label>
+      <ion-input
+        placeholder="30"
+        type="number"
+        [(ngModel)]="duration"
+      ></ion-input>
+    </ion-item>
+    <ion-button style="margin-top: 12px" expand="block" (click)="addHobby()"
+      >Agregar</ion-button
+    >
+  </div>
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-card style="display: block; box-sizing: border-box">
+  <div [style.background-color]="hobby.color" style="padding: 16px 2px"></div>
+  <ion-card-header>
+    <ion-card-title>{{ hobby.title }} </ion-card-title>
+    <ion-card-subtitle> {{ hobby.duration }} minutos </ion-card-subtitle>
+  </ion-card-header>
+  <ion-grid>
+    <ion-row style="display: flex; gap: 12px">
+      <ion-col
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+        "
+      >
+        <ion-icon
+          [style.color]="hobby.isFinished ? 'green' : 'red'"
+          style="font-size: 32px; margin: 0; height: 36px; color: #333"
+          name="checkmark-circle-outline"
+        ></ion-icon>
+        <p style="margin: 0">Listo por hoy</p>
+      </ion-col>
+      <ion-col
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+        "
+      >
+        <p style="margin: 0; font-size: 32px">
+          {{ hobby.streak }}
+        </p>
+        <p style="margin: 0">Racha actual</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          (click)="completeTask(hobby.title)"
+          fill="clear"
+          [innerHTML]="hobby.isFinished ? 'Desmarcar' : 'Marcar completo'"
+        ></ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="openTimer(hobby.duration)" fill="clear"
+          >Empezar Contador</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
