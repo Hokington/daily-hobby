@@ -8,7 +8,30 @@ export class HobbyService {
 
   constructor() { }
 
-  getHobbies(): any[] {
+  getHobbies(owner: string): any[] {
+    const storedHobbies = localStorage.getItem('hobbies');
+    let hobbies = []
+    if (storedHobbies !== null) {
+      hobbies = JSON.parse(storedHobbies);
+    } else {
+      hobbies = [];
+    }
+
+    return hobbies.filter((hobby: Hobby) => hobby.owner == owner)
+
+  }
+
+  addHobby(owner: string, title: string, color: string, duration: number){
+    const today = new Date();
+    const todayString = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+    
+    const hobby: Hobby = {owner, title, color, duration, streak: 0, highest_streak: 0, creation: todayString, isFinished: false, days: []}
+    const hobbies = this.getAllHobbies();
+    hobbies.push(hobby)
+    localStorage.setItem('hobbies', JSON.stringify(hobbies));
+  }
+
+  getAllHobbies(){
     const storedHobbies = localStorage.getItem('hobbies');
     if (storedHobbies !== null) {
       return JSON.parse(storedHobbies);
@@ -17,18 +40,8 @@ export class HobbyService {
     }
   }
 
-  addHobby(title: string, color: string, duration: number){
-    const today = new Date();
-    const todayString = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
-    
-    const hobby: Hobby = {title, color, duration, streak: 0, highest_streak: 0, creation: todayString, isFinished: false, days: []}
-    const hobbies = this.getHobbies();
-    hobbies.push(hobby)
-    localStorage.setItem('hobbies', JSON.stringify(hobbies));
-  }
-
   deleteHobby(title: string){
-    const hobbies = this.getHobbies();
+    const hobbies = this.getAllHobbies();
     const index = hobbies.findIndex((hobby: Hobby) => hobby.title === title);
     if (index !== -1) {
       hobbies.splice(index, 1);
@@ -37,7 +50,7 @@ export class HobbyService {
   }
 
   completeHobby(title: string){
-    let hobbies = this.getHobbies();
+    let hobbies = this.getAllHobbies();
     const hobbyIndex = hobbies.findIndex((hobby: Hobby) => hobby.title === title);
     if (hobbyIndex !== -1) {
       const hobby = hobbies[hobbyIndex];
@@ -49,6 +62,7 @@ export class HobbyService {
 }
 
 export interface Hobby {
+  owner: string;
   title: string;
   color: string;
   duration: number;
@@ -61,3 +75,4 @@ export interface Hobby {
     time: string;
   }[];
 }
+

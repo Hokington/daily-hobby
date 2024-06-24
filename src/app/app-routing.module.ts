@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'empezar-hobby',
-    loadChildren: () => import('./empezar-hobby/empezar-hobby.module').then( m => m.EmpezarHobbyPageModule)
+    path: 'not-found',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
   {
-    path: 'configuracion',
-    loadChildren: () => import('./configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
-  },
-  {
-    path: 'editar-hobby',
-    loadChildren: () => import('./editar-hobby/editar-hobby.module').then( m => m.EditarHobbyPageModule)
+    path: '**',
+    redirectTo: 'not-found',
+    pathMatch: 'full'
   }
+
 ];
 
 @NgModule({

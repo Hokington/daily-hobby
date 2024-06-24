@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 // Services
 import { Hobby, HobbyService } from '../hobby.service';
+import { AuthService } from '../services/auth.service';
+
+// Plugin
+import { Toast } from '@capacitor/toast';
 
 @Component({
   selector: 'app-editar-hobby',
@@ -9,20 +13,28 @@ import { Hobby, HobbyService } from '../hobby.service';
   styleUrls: ['./editar-hobby.page.scss'],
 })
 export class EditarHobbyPage implements OnInit {
-
-  public hobbies: Hobby[] = this.hobbyService.getHobbies();
-
-  constructor(private hobbyService: HobbyService) { }
+  
+  constructor(private hobbyService: HobbyService, private authService: AuthService) { }
+  
+  public session = this.authService.getSession();
+  public hobbies: Hobby[] = this.hobbyService.getHobbies(this.session.email);
 
   ngOnInit() {
   }
 
+
   ionViewWillEnter() {
-    this.hobbies = this.hobbyService.getHobbies();
+    this.hobbies = this.hobbyService.getHobbies(this.session.email);
   }
 
-  deleteHobby(title: string){
+  async deleteHobby(title: string){
     this.hobbyService.deleteHobby(title)
-    this.hobbies = this.hobbyService.getHobbies();
+    this.hobbies = this.hobbyService.getHobbies(this.session.email);
+
+    await Toast.show({
+      text: '¡Se ha eliminado el Hobby '+title+'!',
+      position: 'top',
+      duration: 'short'
+    });
   }
 }

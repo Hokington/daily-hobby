@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>NotFound</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Error 404</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div
+    style="
+      width: 100%;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <h1>Página no encontrada</h1>
+    <ion-button (click)="index()">Volver a Inicio</ion-button>
+  </div>
+</ion-content>

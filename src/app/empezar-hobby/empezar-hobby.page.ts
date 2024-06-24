@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HobbyService } from '../hobby.service';
+import { AuthService } from '../services/auth.service';
+// Plugin
+import { Toast } from '@capacitor/toast';
 
 @Component({
   selector: 'app-empezar-hobby',
@@ -15,7 +18,7 @@ export class EmpezarHobbyPage implements OnInit {
   color: string = "#137383"
   duration: number = 30
 
-  constructor(private router: Router, private hobbyService: HobbyService) { }
+  constructor(private router: Router, private hobbyService: HobbyService, private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -27,7 +30,7 @@ export class EmpezarHobbyPage implements OnInit {
     this.duration = 30
   }
 
-  addHobby() {
+  async addHobby() {
     if (this.title == ""){
       this.errors.push('El titulo no puede estar vacío')
       return
@@ -45,7 +48,14 @@ export class EmpezarHobbyPage implements OnInit {
       this.errors = []
     }
 
-    this.hobbyService.addHobby(this.title, this.color, this.duration)
+    const session = this.authService.getSession();
+    this.hobbyService.addHobby(session.email, this.title, this.color, this.duration)
     this.router.navigate(['/tabs']);
+
+    await Toast.show({
+      text: '¡Se ha agregado un nuevo Hobby!',
+      position: 'top',
+      duration: 'short'
+    });
   }
 }

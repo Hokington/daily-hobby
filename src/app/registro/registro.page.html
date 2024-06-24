@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Iniciar Sesión</ion-title>
+    <ion-title>Registraste!</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
     </ion-header>
     <ion-card style="padding: 4px">
       <ion-card-header>
-        <ion-card-title>Iniciar sesión</ion-card-title>
+        <ion-card-title>Registro</ion-card-title>
       </ion-card-header>
 
       <ion-list *ngIf="errors">
@@ -22,6 +22,14 @@
         </ion-item>
       </ion-list>
 
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input
+          placeholder="Thomas Hokington"
+          type="text"
+          [(ngModel)]="name"
+        ></ion-input>
+      </ion-item>
       <ion-item>
         <ion-label position="stacked">Correo Electrónico</ion-label>
         <ion-input
@@ -39,13 +47,21 @@
           [(ngModel)]="password"
         ></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Repetir Contraseña</ion-label>
+        <ion-input
+          placeholder="***********"
+          type="password"
+          [(ngModel)]="password2"
+        ></ion-input>
+      </ion-item>
 
-      <ion-button style="margin-top: 12px" expand="block" (click)="login()"
-        >Iniciar Sesión</ion-button
+      <ion-button style="margin-top: 12px" expand="block" (click)="register()"
+        >Crear cuenta</ion-button
       >
-      <button style="background: none" [routerLink]="['/registro']">
+      <button style="background: none" [routerLink]="['/login']">
         <span style="color: rgb(5, 142, 255); padding: 8px 2px; display: block"
-          >Crea una cuenta nueva!</span
+          >¿Ya tienes cuenta? Inicia sesión aquí</span
         >
       </button>
     </ion-card>

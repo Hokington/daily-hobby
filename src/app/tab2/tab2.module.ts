@@ -6,7 +6,6 @@ import { Tab2Page } from './tab2.page';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { HobbyCardComponent } from '../components/hobby-card/hobby-card.component';
-import { HobbyListComponent } from '../components/hobby-list/hobby-list.component';
 
 @NgModule({
   imports: [
@@ -15,7 +14,7 @@ import { HobbyListComponent } from '../components/hobby-list/hobby-list.componen
     FormsModule,
     Tab2PageRoutingModule
   ],
-  declarations: [Tab2Page, HobbyListComponent, HobbyCardComponent]
+  declarations: [Tab2Page, HobbyCardComponent]
 })
 
 export class Tab2PageModule {}

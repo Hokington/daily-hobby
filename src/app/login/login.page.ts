@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,15 @@ export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   login() {
+
+    this.errors = []
+
     if (this.email == ""){
       this.errors.push('El Email no puede estar vacío')
       return
@@ -32,6 +36,20 @@ export class LoginPage implements OnInit {
       this.errors = []
     }
 
+    const user = this.authService.getUser(this.email)
+
+    if(user == null){
+      this.errors.push('Este usuario no existe')
+      return
+    }
+
+    if(user.password != this.password) {
+      this.errors.push('Credenciales incorrectas')
+      return
+    }
+
+    this.authService.createSession(user)
+    
     this.router.navigateByUrl('/tabs');
   }
 

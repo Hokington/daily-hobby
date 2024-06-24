@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 // Services
 import { Hobby, HobbyService } from '../hobby.service';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -10,13 +12,16 @@ import { Hobby, HobbyService } from '../hobby.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  
+  constructor(private router: Router, private hobbyService: HobbyService, private authService: AuthService) {}
 
-  public hobbies: Hobby[] = this.hobbyService.getHobbies();
+  public session = this.authService.getSession()
 
-  constructor(private router: Router, private hobbyService: HobbyService) {}
+  public hobbies: Hobby[] = this.hobbyService.getHobbies(this.session.email);
 
+  
   ionViewWillEnter() {
-    this.hobbies = this.hobbyService.getHobbies();
+    this.hobbies = this.hobbyService.getHobbies(this.session.email);
   }
 
   addHobby() {
@@ -26,5 +31,7 @@ export class Tab2Page {
   editHobby() {
     this.router.navigateByUrl('/tabs/editar-hobby');
   }
+
+
 
 }
